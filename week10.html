@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ECOM050 - CF10 Flashcards</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1>Week 10: Initial Public Offerings (CF10)</h1>
+<p>Topics: IPO Process, Underpricing, Underwriters, Costs, Asymmetric Info</p>
+
+<div class="flashcard" id="flashcard">
+  <div class="question" id="question">Loading...</div>
+  <button onclick="showAnswer()">Show Answer</button>
+  <div class="answer" id="answer" style="display:none;">Loading...</div>
+</div>
+
+<div class="controls">
+  <button onclick="prevCard()">Previous</button>
+  <button onclick="shuffleCards()">Shuffle</button>
+  <button onclick="nextCard()">Next</button>
+</div>
+
+<a href="index.html">⬅ Back to Home</a>
+
+<script>
+const flashcards = [
+  // IPO Basics
+  { question: "What is an IPO?", answer: "Initial Public Offering — the first time a company offers stock to the public." },
+  { question: "What is the spread in IPOs?", answer: "The difference between the offer price to the public and what the underwriter pays the company." },
+  { question: "What is a prospectus?", answer: "A formal document detailing a security offering for investors." },
+
+  // IPO Benefits & Costs
+  { question: "List key benefits of IPOs.", answer: "1. Raise capital, 2. Provide exit for investors, 3. Diversify ownership, 4. Increase visibility." },
+  { question: "What are key costs of going public?", answer: "1. Admin costs (2–10%), 2. Underwriting fees (7%), 3. Disclosure, 4. Loss of control, 5. Underpricing." },
+
+  // IPO Process
+  { question: "List the 8 major steps in the IPO process.", answer: "1. Appoint underwriters, 2. Agree on spread & greenshoe, 3. File registration, 4. Roadshow, 5. Price is set, 6. Stock allotted, 7. Price stabilization, 8. Quiet period ends." },
+  { question: "What is a greenshoe option?", answer: "Allows underwriters to issue 15% more shares if demand is high." },
+
+  // Underwriting
+  { question: "What is firm commitment vs best efforts?", answer: "Firm: bank buys shares and bears risk. Best efforts: bank sells what it can." },
+  { question: "List underwriter risks.", answer: "1. Insufficient demand, 2. Price risk, 3. Legal/reputation risk." },
+
+  // Rights Issues
+  { question: "How does a rights issue work?", answer: "Current shareholders can buy new shares at a discount, usually proportionally to their holdings." },
+  { question: "Does underpricing in rights issues hurt shareholders?", answer: "No — if they exercise rights or sell them, they’re not harmed." },
+
+  // IPO Math Example
+  { question: "What % did Netscape founders give up in their IPO?", answer: "6.63%" },
+  { question: "What was the issue price of Netscape after IPO?", answer: "$57.96" },
+  { question: "How much did Netscape raise gross and net?", answer: "Gross: $140M; Net: $130.2M" },
+  { question: "What was the cost of issuance?", answer: "$9.8M (7%)" },
+
+  // Empirical IPO Evidence
+  { question: "What’s the average first-day IPO return?", answer: "Around 16% (underpricing)" },
+  { question: "What’s the long-run return of IPOs?", answer: "Low — 3-year average ~34% vs 62% for small stock benchmarks." },
+  { question: "Is underpricing observed globally?", answer: "Yes — it’s found across all countries and is more common for small/young firms." },
+
+  // Theories for Underpricing
+  { question: "Why are IPOs underpriced (3 main reasons)?", answer: "1. Price support by underwriter, 2. Risk-averse owners want guaranteed success, 3. Asymmetric info (e.g., winner’s curse)." },
+  { question: "What is the winner’s curse?", answer: "If you win a bid for an IPO, it may mean others (better informed) passed on it — you overpaid." },
+  { question: "What is the key role of informed vs uninformed investors?", answer: "Uninformed must expect 0% return or won’t participate; leads to needed underpricing." },
+
+  // Quiz Concepts
+  { question: "Poll: Which type of offering has higher costs — IPO or SEO?", answer: "IPO has higher costs." },
+  { question: "Poll: Why do firms underprice IPOs?", answer: "To compensate uninformed investors, ensure participation, and reduce allocation risk." },
+  { question: "Poll: Who bears most cost in IPO underpricing?", answer: "Founders — value transferred to new shareholders below market value." }
+];
+
+let currentIndex = 0;
+
+function displayCard() {
+  const q = document.getElementById("question");
+  const a = document.getElementById("answer");
+  q.innerHTML = "<b>Q:</b> " + flashcards[currentIndex].question;
+  a.innerHTML = "<b>A:</b> " + flashcards[currentIndex].answer;
+  a.style.display = "none";
+}
+
+function showAnswer() {
+  document.getElementById("answer").style.display = "block";
+}
+
+function nextCard() {
+  currentIndex = (currentIndex + 1) % flashcards.length;
+  displayCard();
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+  displayCard();
+}
+
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  currentIndex = 0;
+  displayCard();
+}
+
+window.onload = displayCard;
+</script>
+
+</body>
+</html>
+
+
+

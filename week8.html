@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ECOM050 - CF8 Flashcards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>ECOM050 - CF8 Flashcards</h1>
+<p>Topic: Issuing Securities and Informational Frictions</p>
+
+<div class="flashcard" id="flashcard">
+  <div class="question" id="question">Loading...</div>
+  <button onclick="showAnswer()">Show Answer</button>
+  <div class="answer" id="answer" style="display:none;">Loading...</div>
+</div>
+
+<div class="controls">
+  <button onclick="prevCard()">Previous</button>
+  <button onclick="shuffleCards()">Shuffle</button>
+  <button onclick="nextCard()">Next</button>
+</div>
+
+<a href="index.html">⬅ Back to Home</a>
+
+<script>
+const flashcards = [
+  // Pecking Order Theory
+  { question: "What is the pecking order of financing?", answer: "1. Internal funds, 2. Debt, 3. Equity" },
+  { question: "Why do firms follow the pecking order?", answer: "To avoid the high costs of asymmetric information and underpricing of equity." },
+  { question: "Why are firms reluctant to issue new equity?", answer: "Because it can be interpreted as a negative signal and cause stock price to fall." },
+
+  // Equity Issuance and Market Reaction
+  { question: "What happens to stock price when firms issue equity?", answer: "Stock price often falls due to perceived negative information." },
+  { question: "What events increase stock prices?", answer: "Leverage increases like share repurchases and dividend initiations." },
+
+  // Asymmetric Information
+  { question: "What is the cost of information asymmetry?", answer: "Good firms get undervalued when markets cannot differentiate them from bad firms." },
+  { question: "What happens when equity is issued under asymmetry?", answer: "Existing shareholders lose value due to underpricing." },
+
+  // Event Study
+  { question: "How do equity issues affect abnormal stock returns?", answer: "-3.1% on average" },
+  { question: "What is the effect of share repurchases?", answer: "+3.6% to +16.2% depending on method" },
+  { question: "What is the market reaction to dividend cuts?", answer: "-3.6%" },
+
+  // Examples
+  { question: "In the no asymmetry example, who captures NPV?", answer: "Existing shareholders" },
+  { question: "In the asymmetry example, who benefits?", answer: "New shareholders benefit, existing shareholders lose value" },
+
+  // Debt vs Equity
+  { question: "Why is safe debt preferred under asymmetry?", answer: "Because it's not underpriced — its value is not sensitive to firm type." },
+  { question: "Is risky debt better than equity?", answer: "Yes — less underpricing than equity." },
+  { question: "What is the firm value if a good firm uses safe debt?", answer: "£110M (same as under full info)" },
+
+  // Hybrid Securities
+  { question: "Why issue preferred stock?", answer: "Fixed payout like debt, less underpricing than equity." },
+  { question: "What is convertible debt?", answer: "Debt that can convert to shares — gets equity into capital structure without immediate dilution." },
+
+  // Signaling
+  { question: "What is signaling in finance?", answer: "Good types send costly signals to separate themselves from bad types." },
+
+  // Lemon’s Problem
+  { question: "What is the market for lemons problem?", answer: "Only bad assets are sold when buyers can't distinguish quality — good firms stay out." },
+
+  // Polls
+  { question: "Poll: What is the pecking order of financing?", answer: "Internal funds > debt > external equity" },
+  { question: "Poll: What is the market reaction to equity issuance?", answer: "Generally negative — signals overvaluation or bad news." },
+  { question: "Poll: What drives pecking order theory?", answer: "Information asymmetry" },
+  { question: "Poll: What is the lemons problem?", answer: "Buyers can't tell quality, good assets are withheld, only lemons are sold." },
+  { question: "Poll: What makes a signal credible in signaling theory?", answer: "It must be more costly for bad firms than for good ones." },
+  { question: "Poll: Who captures NPV with no asymmetry?", answer: "Existing shareholders" },
+  { question: "Poll: Who captures NPV under asymmetry?", answer: "Some is transferred to bad firms — existing shareholders lose part of the value." },
+  { question: "Poll: Why is debt preferred under asymmetry?", answer: "Less information-sensitive than equity, safer debt has no underpricing." },
+  { question: "Poll: What do good firms do under severe underpricing?", answer: "Avoid equity issuance unless absolutely necessary." },
+  { question: "Poll: Which firms hoard more cash?", answer: "Small companies with low tangible assets (more asymmetric info)" }
+];
+
+let currentIndex = 0;
+
+function displayCard() {
+  const questionEl = document.getElementById('question');
+  const answerEl = document.getElementById('answer');
+  questionEl.textContent = flashcards[currentIndex].question;
+  answerEl.textContent = flashcards[currentIndex].answer;
+  answerEl.style.display = "none";
+}
+
+function showAnswer() {
+  document.getElementById('answer').style.display = "block";
+}
+
+function nextCard() {
+  currentIndex = (currentIndex + 1) % flashcards.length;
+  displayCard();
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+  displayCard();
+}
+
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  currentIndex = 0;
+  displayCard();
+}
+
+window.onload = displayCard;
+</script>
+
+</body>
+</html>
+

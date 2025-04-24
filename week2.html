@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ECOM050 - CF2 Lecture Flashcards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>ECOM050 - CF2 Flashcards</h1>
+<p>Topics: Capital Structure, Financial Policy, Cash Flows, Ratios, Governance</p>
+
+<div class="flashcard" id="flashcard">
+  <div class="question" id="question">Loading...</div>
+  <button onclick="showAnswer()">Show Answer</button>
+  <div class="answer" id="answer" style="display:none;">Loading...</div>
+</div>
+
+<div class="controls">
+  <button onclick="prevCard()">Previous</button>
+  <button onclick="shuffleCards()">Shuffle</button>
+  <button onclick="nextCard()">Next</button>
+</div>
+
+<a href="index.html">⬅ Back to Home</a>
+
+<script>
+const flashcards = [
+  // Debt & Equity
+  { question: "What is debt in corporate finance?", answer: "A fixed claim with priority in distress, but no control." },
+  { question: "What is equity?", answer: "Residual claim with ownership and lowest priority in distress." },
+  { question: "What are advantages of bank borrowing?", answer: "Easier to arrange, advice, suits small firms." },
+  { question: "What are disadvantages of corporate bonds?", answer: "Harder to arrange, require rating, suited for large firms." },
+  { question: "Why has there been a shift from public to private equity?", answer: "Regulatory burden, market dynamics, and investor preferences." },
+
+  // Corporation Objective
+  { question: "What is the main objective of the corporation?", answer: "Maximize firm value (typically equity value)." },
+  { question: "What are the two key corporate policies?", answer: "Investment policy (assets), and financing policy (liabilities)." },
+  { question: "When should a company return cash to shareholders?", answer: "When it has no positive NPV investments left." },
+
+  // Investment, Financing, Payout
+  { question: "What is a positive NPV project?", answer: "A project with returns exceeding the hurdle rate." },
+  { question: "What is the payout decision?", answer: "How much of the firm’s earnings are distributed vs reinvested." },
+  { question: "What is the financial manager’s role in payout?", answer: "Decide how to split profits among dividends, reinvestment, and interest." },
+
+  // Governance & Strategy
+  { question: "What happened in the Cullum LBO?", answer: "Aggressive leverage + expansion = financial distress, takeover by Food Lion." },
+  { question: "What lesson does Cullum illustrate?", answer: "Financial and operational strategy must be coordinated." },
+  { question: "What is financial distress risk?", answer: "The likelihood of being unable to meet debt obligations due to poor coordination or competition." },
+
+  // Financial Statements
+  { question: "What are the 3 main financial statements?", answer: "Balance Sheet, Income Statement, Cash Flow Statement." },
+  { question: "What is the difference between book and market value?", answer: "Book = accounting value; Market = actual market price." },
+  { question: "What is Net Income (simple form)?", answer: "Revenues – Expenses" },
+  { question: "What is EBIT?", answer: "Earnings Before Interest and Taxes = Revenue - COGS - Operating Expenses" },
+
+  // Cash Flows
+  { question: "Why is Free Cash Flow (FCF) important?", answer: "It shows cash available for investors." },
+  { question: "What is the FCF formula?", answer: "FCF = (1−tax rate)×EBIT + Dep − CapEx − ΔNWC" },
+  { question: "Why do financiers care more about cash flows than accounting figures?", answer: "Because cash flows determine actual returns to investors." },
+
+  // Financial Ratios & DuPont
+  { question: "What is the DuPont Identity?", answer: "ROE = Profit Margin × Asset Turnover × Financial Leverage" },
+  { question: "What does Profit Margin measure?", answer: "How much of each dollar of sales is profit." },
+  { question: "What does Asset Turnover measure?", answer: "Efficiency in using assets to generate sales." },
+  { question: "What does Financial Leverage measure?", answer: "How much of the firm's financing is from debt." },
+  { question: "What is ROE?", answer: "Return on Equity = Net Income / Shareholders' Equity" },
+
+  // Other Ratios
+  { question: "What is Interest Coverage?", answer: "EBIT / Interest Expense" },
+  { question: "What is the Current Ratio?", answer: "Current Assets / Current Liabilities" },
+  { question: "What is the Quick Ratio?", answer: "(Current Assets - Inventory) / Current Liabilities" },
+
+  // Zoom Polls
+  { question: "Zoom Poll: What is the objective of the corporation?", answer: "Maximize equity value, which often aligns with maximizing total firm value." },
+  { question: "Zoom Poll: In which industry is high leverage + growth more dangerous?", answer: "Industries with high competition." },
+  { question: "Zoom Poll: When should payout be higher?", answer: "When no good investment projects remain." },
+  { question: "Zoom Poll: Which is true about Free Cash Flow?", answer: "You add depreciation back and subtract CapEx and ΔNWC from EBIT(1−T)." },
+  { question: "Zoom Poll: What’s considered the industry standard ratio to evaluate firm performance?", answer: "Return on Equity (ROE)." },
+  { question: "Zoom Poll: What was the key DuPont ratio in the FT article?", answer: "Sales / Assets (Asset Turnover)" }
+];
+
+let currentIndex = 0;
+
+function displayCard() {
+  const questionEl = document.getElementById('question');
+  const answerEl = document.getElementById('answer');
+  questionEl.textContent = flashcards[currentIndex].question;
+  answerEl.textContent = flashcards[currentIndex].answer;
+  answerEl.style.display = "none";
+}
+
+function showAnswer() {
+  document.getElementById('answer').style.display = "block";
+}
+
+function nextCard() {
+  currentIndex = (currentIndex + 1) % flashcards.length;
+  displayCard();
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+  displayCard();
+}
+
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  currentIndex = 0;
+  displayCard();
+}
+
+window.onload = displayCard;
+</script>
+
+</body>
+</html>
+

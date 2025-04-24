@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ECOM050 - CF4 Flashcards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>ECOM050 - CF4 Flashcards</h1>
+<p>Topics: Capital Structure with Taxes, Tax Shields, Bankruptcy Costs, Trade-off Theory</p>
+
+<div class="flashcard" id="flashcard">
+  <div class="question" id="question">Loading...</div>
+  <button onclick="showAnswer()">Show Answer</button>
+  <div class="answer" id="answer" style="display:none;">Loading...</div>
+</div>
+
+<div class="controls">
+  <button onclick="prevCard()">Previous</button>
+  <button onclick="shuffleCards()">Shuffle</button>
+  <button onclick="nextCard()">Next</button>
+</div>
+
+<a href="index.html">⬅ Back to Home</a>
+
+<script>
+const flashcards = [
+  // MM with Corporate Taxes
+  { question: "How does debt create value in a world with corporate taxes?", answer: "Interest is tax-deductible, reducing tax liability and increasing firm value." },
+  { question: "What is the formula for the value of a levered firm with corporate taxes?", answer: "VL = VU + PV(Tax Shield)" },
+  { question: "How do we discount tax shields with fixed interest payments?", answer: "Use the cost of debt (rD) because the shield is as safe as debt." },
+
+  // WACC and Taxes
+  { question: "What happens to WACC with leverage in a tax world?", answer: "WACC decreases due to the tax shield on debt interest." },
+  { question: "What is the new WACC formula with taxes?", answer: "WACC = (E/V)×rE + (D/V)×rD×(1−Tc)" },
+
+  // MM II with Taxes
+  { question: "How does rE change with leverage in MM II with taxes?", answer: "rE increases with D/E, but WACC still decreases overall due to tax shield." },
+
+  // Share Price & Recapitalization
+  { question: "How does a leveraged recap affect share price with taxes?", answer: "Stock price rises immediately on announcement due to tax shield value." },
+  { question: "When is value created in recapitalization?", answer: "Only if debt replaces equity — not just by borrowing and holding cash." },
+
+  // Personal Taxes
+  { question: "How do personal taxes affect debt vs equity preference?", answer: "If personal taxes on debt income are higher, equity may be preferred by investors." },
+  { question: "What is the adjusted firm value with corporate and personal taxes?", answer: "VL = VU + (1−(1−TD)/(1−TC)(1−TE))×D" },
+
+  // Financial Distress
+  { question: "What are financial distress costs?", answer: "Costs from actual or potential default, including legal, reputational, and lost business." },
+  { question: "What are direct costs of financial distress?", answer: "Legal fees, court costs, advisory fees, time with creditors, fire-sale of assets." },
+  { question: "What are indirect costs?", answer: "Lost customers, suppliers, R&D cuts, staff departures, market share losses, conflict of interest." },
+
+  // Examples of Distress Costs
+  { question: "What is an example of large direct distress costs?", answer: "Energy Future Holdings: ~$600k/day in legal and advisory fees during Ch. 11." },
+
+  // Trade-off Theory
+  { question: "What is the Trade-off Theory?", answer: "Firms balance tax advantages of debt against financial distress costs to determine leverage." },
+  { question: "Why don't firms use 100% debt even if tax shield exists?", answer: "Because distress risk and costs increase with leverage." },
+
+  // Optimal Leverage Implications
+  { question: "Which types of firms tend to have higher debt?", answer: "Firms with stable cash flows and tangible assets (e.g., utilities)." },
+  { question: "Which types of firms tend to have lower debt?", answer: "Firms with volatile cash flows or high R&D (e.g., tech, biotech)." },
+
+  // Polls from Slides
+  { question: "Poll: Which statements are true about tax shields?", answer: "Tax shields increase firm value and total cash flow by lowering tax payments." },
+  { question: "Poll: What happens to WACC with leverage and taxes?", answer: "WACC decreases because debt has tax-advantaged cost." },
+  { question: "Poll: Which discount rate is used for tax shield with fixed debt?", answer: "Cost of debt (rD) since interest is predetermined." },
+  { question: "Poll: Effect of leveraged recap on share price?", answer: "Share price increases at announcement due to new tax shield." },
+  { question: "Poll: Which statement is true about personal taxes?", answer: "Debt may be disadvantaged at personal level, lowering its tax benefit." },
+  { question: "Poll: What are direct costs of distress?", answer: "Legal fees, court costs, dealing with creditors." },
+  { question: "Poll: What are indirect costs of distress?", answer: "Lost R&D, customers, employee departures, market share losses." },
+  { question: "Poll: What does trade-off theory state?", answer: "Firms should balance tax shields against distress costs when choosing debt level." },
+  { question: "Poll: Which firms have higher leverage?", answer: "Firms with tangible assets and predictable cash flows." },
+  { question: "Poll: Which firms have lower leverage?", answer: "Firms with intangible assets and volatile earnings (e.g., tech)." }
+];
+
+let currentIndex = 0;
+
+function displayCard() {
+  const questionEl = document.getElementById('question');
+  const answerEl = document.getElementById('answer');
+  questionEl.textContent = flashcards[currentIndex].question;
+  answerEl.textContent = flashcards[currentIndex].answer;
+  answerEl.style.display = "none";
+}
+
+function showAnswer() {
+  document.getElementById('answer').style.display = "block";
+}
+
+function nextCard() {
+  currentIndex = (currentIndex + 1) % flashcards.length;
+  displayCard();
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+  displayCard();
+}
+
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  currentIndex = 0;
+  displayCard();
+}
+
+window.onload = displayCard;
+</script>
+
+</body>
+</html>
+

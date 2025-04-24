@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week 10 Flashcards - International Corporate Finance</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+    .flashcard { width: 80%; max-width: 600px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px; }
+    .buttons { display: flex; justify-content: space-between; margin-top: 10px; }
+    button { padding: 10px 20px; border: none; border-radius: 5px; background-color: #007bff; color: white; cursor: pointer; }
+    button:hover { background-color: #0056b3; }
+  </style>
+</head>
+<body>
+  <h1>Week 10: International Corporate Finance Flashcards</h1>
+  <div class="flashcard" id="flashcard">
+    <p id="question"></p>
+  </div>
+  <div class="buttons">
+    <button onclick="prevCard()">Previous</button>
+    <button onclick="shuffleCard()">Shuffle</button>
+    <button onclick="nextCard()">Next</button>
+  </div>
+
+  <script>
+    const flashcards = [
+      { q: "What is an exchange rate?", a: "The amount of one currency needed to purchase one unit of another currency." },
+      { q: "Define spot rate and forward rate of exchange.", a: "Spot rate is for immediate transactions; forward rate is for transactions at a future date." },
+      { q: "What does it mean if a currency is at a forward premium?", a: "It means you can buy more foreign currency at the forward rate than at the spot rate." },
+      { q: "What is transaction exposure?", a: "Exposure from foreign currency receivables or payables due to timing differences." },
+      { q: "What is economic exposure?", a: "Currency risk arising from competitive impacts of exchange rate changes." },
+      { q: "How can a company hedge currency risk?", a: "By selling the foreign currency forward or borrowing in that currency and selling spot." },
+      { q: "What is interest rate parity?", a: "It states that the ratio of forward to spot exchange rates equals the ratio of interest rates in two countries." },
+      { q: "What is the expectations theory of exchange rates?", a: "It assumes the forward rate equals the expected future spot rate." },
+      { q: "What is purchasing power parity?", a: "Exchange rates adjust to offset inflation differences between countries." },
+      { q: "What is the cost of hedging?", a: "It's the difference between the forward rate and the expected future spot rate." },
+      { q: "How does operational hedging work?", a: "By balancing production and sales in the same currency zones." },
+      { q: "What are the two methods to evaluate international projects?", a: "1. Discount foreign cash flows at foreign rate and convert, or 2. Convert at forward rate and discount at home rate." },
+      { q: "Why separate investment from exchange rate hedging?", a: "To avoid rejecting profitable projects due to expected currency changes." }
+    ];
+
+    let current = 0;
+
+    function showCard(index) {
+      const card = flashcards[index];
+      document.getElementById('question').innerHTML = `<strong>Q:</strong> ${card.q}<br><br><strong>A:</strong> ${card.a}`;
+    }
+
+    function nextCard() {
+      current = (current + 1) % flashcards.length;
+      showCard(current);
+    }
+
+    function prevCard() {
+      current = (current - 1 + flashcards.length) % flashcards.length;
+      showCard(current);
+    }
+
+    function shuffleCard() {
+      current = Math.floor(Math.random() * flashcards.length);
+      showCard(current);
+    }
+
+    // Show the first card on load
+    window.onload = () => showCard(current);
+  </script>
+</body>
+</html>
+
+

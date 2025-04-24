@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ECOM050 - CF5 Flashcards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>ECOM050 - CF5 Flashcards</h1>
+<p>Topic: Blaine Kitchenware Capital Structure Case Study</p>
+
+<div class="flashcard" id="flashcard">
+  <div class="question" id="question">Loading...</div>
+  <button onclick="showAnswer()">Show Answer</button>
+  <div class="answer" id="answer" style="display:none;">Loading...</div>
+</div>
+
+<div class="controls">
+  <button onclick="prevCard()">Previous</button>
+  <button onclick="shuffleCards()">Shuffle</button>
+  <button onclick="nextCard()">Next</button>
+</div>
+
+<a href="index.html">⬅ Back to Home</a>
+
+<script>
+const flashcards = [
+  // Basic Facts
+  { question: "What is Blaine Kitchenware’s ROE before the recap?", answer: "11.0%, below the industry average of 25.9%" },
+  { question: "How much cash and marketable securities did Blaine hold in 2006?", answer: "$231 million" },
+  { question: "What is Blaine proposing to do?", answer: "Borrow $50M at 6.75% and use that plus $209M of cash to repurchase 14M shares at $18.50." },
+
+  // Leverage & Balance Sheet
+  { question: "What is the post-recap debt-to-equity ratio?", answer: "22%" },
+  { question: "What is the post-recap debt-to-total capital ratio?", answer: "18%" },
+  { question: "What is Blaine’s net debt after repurchase?", answer: "$28.1M (50M debt - 21.9M cash)" },
+
+  // Interest Coverage & Distress Risk
+  { question: "What is Blaine’s post-recap interest coverage ratio?", answer: "EBIT of $63.9M / $3.375M interest = 19x" },
+  { question: "Is Blaine at risk of financial distress post-recap?", answer: "Unlikely, interest coverage is strong and leverage remains low." },
+
+  // Peer Comparison
+  { question: "How does Blaine’s leverage compare to peers?", answer: "Blaine is much less levered (22% D/E vs peers at 49–187%)" },
+
+  // Tax Shields
+  { question: "How do tax shields affect firm value?", answer: "They reduce taxes paid and add to firm value: PV(Tax Shield) = t × D" },
+  { question: "What is the PV of tax shield for $50M debt at 31% tax?", answer: "$15.5M" },
+  { question: "What if t = 40%?", answer: "$20M PV tax shield" },
+  { question: "What is the tax shield from net debt change ($259M)?", answer: "$80.3M (at 31%) or $104M (at 40%)" },
+
+  // EPS & ROE Effects
+  { question: "How does the recap affect EPS and ROE?", answer: "EPS increases from $0.91 to $0.95; ROE from 11% to 18.7%" },
+  { question: "What drives the increase in ROE?", answer: "Primarily financial leverage; small contribution from tax shield." },
+  { question: "What is the mechanical (tax-free) ROE after recap?", answer: "16.6%" },
+  { question: "What is the value-added ROE from taxes?", answer: "2.1% (18.7% − 16.6%)" },
+
+  // Shareholder Impact
+  { question: "How does the recap affect shareholders’ after-tax income?", answer: "Gains due to tax efficiency and cash being returned to owners." },
+  { question: "Why does the share price increase only ~$0.26 on tax gains?", answer: "Because the market already anticipates part of the value from the announcement." },
+
+  // Repurchase vs Premium
+  { question: "Is Blaine overpaying by offering a $2.25 premium?", answer: "No — total payout is fixed ($259M), premium only affects who sells." },
+
+  // Control & Governance
+  { question: "What happens to family control if they don’t tender?", answer: "Increases from 62% to 81%" },
+  { question: "If the family tenders like everyone else?", answer: "Control remains unchanged at 62%" },
+
+  // Risks
+  { question: "What are risks of recapitalizing Blaine?", answer: "Less flexibility for acquisitions, exposure to economic downturns, potential for distress." },
+
+  // Financial Distress
+  { question: "What are costs of financial distress (CFD)?", answer: "Legal fees, lost customers, staff departures, reduced R&D, etc." },
+  { question: "What is the formula to estimate PV of CFD?", answer: "PV(CFD) = probability × cost in distress" },
+
+  // Trade-Off Theory
+  { question: "What is the trade-off theory of capital structure?", answer: "Firms balance tax shield benefits with costs of financial distress." },
+  { question: "Where is Blaine on the static trade-off curve?", answer: "Well below optimal debt (negative net debt), so recap moves it closer to value-maximizing capital structure." },
+
+  // Summary
+  { question: "Does the recap create value?", answer: "Yes, via tax shields and efficient capital return." },
+  { question: "Should Blaine proceed with the recap?", answer: "Yes — if they can manage risks and align with long-term strategy." }
+];
+
+let currentIndex = 0;
+
+function displayCard() {
+  const questionEl = document.getElementById('question');
+  const answerEl = document.getElementById('answer');
+  questionEl.textContent = flashcards[currentIndex].question;
+  answerEl.textContent = flashcards[currentIndex].answer;
+  answerEl.style.display = "none";
+}
+
+function showAnswer() {
+  document.getElementById('answer').style.display = "block";
+}
+
+function nextCard() {
+  currentIndex = (currentIndex + 1) % flashcards.length;
+  displayCard();
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+  displayCard();
+}
+
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  currentIndex = 0;
+  displayCard();
+}
+
+window.onload = displayCard;
+</script>
+
+</body>
+</html>
