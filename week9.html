@@ -1,128 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Week 9 - FX Markets Flashcards</title>
-  <style>
-    body { font-family: sans-serif; background: #f5f5f5; text-align: center; margin: 0; padding: 2rem; }
-    .flashcard { background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); max-width: 600px; margin: 2rem auto; }
-    .question { font-weight: bold; font-size: 1.2rem; }
-    .answer { margin-top: 1rem; display: none; }
-    button { margin: 1rem 0.5rem; padding: 0.6rem 1.2rem; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
-    .toggle { background-color: #007BFF; color: white; }
-    .nav { background-color: #28A745; color: white; }
-  </style>
+  <meta charset="UTF-8">
+  <title>ECOM050 - CF9 Flashcards</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Week 9: FX Markets & Exchange Rates</h1>
-  <div id="card" class="flashcard">
-    <div class="question" id="question"></div>
-    <div class="answer" id="answer"></div>
-    <button class="toggle" onclick="toggleAnswer()">Show/Hide Answer</button>
-    <br/>
-    <button class="nav" onclick="prevCard()">Previous</button>
-    <button class="nav" onclick="nextCard()">Next</button>
-    <button class="nav" onclick="shuffleCards()">Shuffle</button>
-  </div>
+<h1>CF9: Foreign Exchange & International Investment</h1>
+<p>Topics: Exchange Rates, Hedging, FX Theories, Global Capital Budgeting</p>
 
-  <script>
-    const flashcards = [
-      {
-        q: "What is the definition of 'Exchange Rate'?",
-        a: "The amount of one currency needed to purchase one unit of another."
-      },
-      {
-        q: "What is a 'Spot Rate of Exchange'?",
-        a: "The exchange rate for an immediate transaction."
-      },
-      {
-        q: "What is a 'Forward Exchange Rate'?",
-        a: "The exchange rate for a transaction set to occur at a future date."
-      },
-      {
-        q: "What is meant by 'Forward Premium' and 'Forward Discount'?",
-        a: "Premium: foreign currency buys more in the future than now. Discount: it buys less."
-      },
-      {
-        q: "How do you calculate the forward premium/discount?",
-        a: "((Forward Rate / Spot Rate) - 1) × 100"
-      },
-      {
-        q: "What does the 'Interest Rate Parity' theory state?",
-        a: "It says the forward/spot exchange rate ratio equals the ratio of interest rates between two countries."
-      },
-      {
-        q: "Explain the 'Expectations Theory of Exchange Rates'.",
-        a: "It says the forward rate is an unbiased predictor of the future spot rate."
-      },
-      {
-        q: "What is the 'International Fisher Effect'?",
-        a: "Countries with higher interest rates generally have higher expected inflation and depreciation."
-      },
-      {
-        q: "Define Transaction Exposure.",
-        a: "Risk from foreign currency payments delays, due to invoicing in foreign currency."
-      },
-      {
-        q: "Define Economic Exposure.",
-        a: "Long-term effect of exchange rate fluctuations on competitiveness and pricing."
-      },
-      {
-        q: "What are two strategies for hedging transaction exposure?",
-        a: "1. Sell foreign currency forward; 2. Borrow foreign currency and sell spot."
-      },
-      {
-        q: "What is operational hedging?",
-        a: "Aligning production and sales across countries to naturally balance currency risk."
-      },
-      {
-        q: "What is the cost of hedging?",
-        a: "The difference between the forward rate and the expected spot rate at maturity."
-      },
-      {
-        q: "How does a global vs. domestic portfolio change the cost of capital?",
-        a: "Domestic investors focus on domestic risk; global investors consider global correlation effects."
-      },
-      {
-        q: "Why should FX hedging be separated from investment decisions?",
-        a: "To ensure good investments aren't ignored due to currency concerns."
-      }
-    ];
+<div class="flashcard" id="flashcard">
+  <div class="question" id="question">Loading...</div>
+  <button onclick="showAnswer()">Show Answer</button>
+  <div class="answer" id="answer" style="display:none;">Loading...</div>
+</div>
 
-    let current = 0;
+<div class="controls">
+  <button onclick="prevCard()">Previous</button>
+  <button onclick="shuffleCards()">Shuffle</button>
+  <button onclick="nextCard()">Next</button>
+</div>
 
-    function showCard(index) {
-      document.getElementById("question").textContent = flashcards[index].q;
-      document.getElementById("answer").textContent = flashcards[index].a;
-      document.getElementById("answer").style.display = "none";
-    }
+<a href="index.html">⬅ Back to Home</a>
 
-    function toggleAnswer() {
-      const ans = document.getElementById("answer");
-      ans.style.display = ans.style.display === "none" ? "block" : "none";
-    }
+<script>
+const flashcards = [
+  // Basic Concepts
+  { question: "What is an exchange rate?", answer: "The price of one currency in terms of another." },
+  { question: "What is the spot exchange rate?", answer: "The current rate for immediate exchange of currencies." },
+  { question: "What is a forward exchange rate?", answer: "The agreed rate for exchanging currencies on a future date." },
 
-    function prevCard() {
-      current = (current - 1 + flashcards.length) % flashcards.length;
-      showCard(current);
-    }
+  // Forward Premium/Discount
+  { question: "What does a forward premium mean?", answer: "The foreign currency is expected to strengthen — forward rate > spot rate." },
+  { question: "What is a forward discount?", answer: "The foreign currency is expected to weaken — forward rate < spot rate." },
+  { question: "How do you calculate the forward premium/discount?", answer: "((Forward - Spot) / Spot) × (360 / days to maturity)" },
 
-    function nextCard() {
-      current = (current + 1) % flashcards.length;
-      showCard(current);
-    }
+  // FX Market Players
+  { question: "Who are the main participants in FX markets?", answer: "Corporations, investors, governments, and speculators." },
+  { question: "What is arbitrage in FX?", answer: "Profiting from price discrepancies across markets without risk." },
 
-    function shuffleCards() {
-      flashcards.sort(() => Math.random() - 0.5);
-      current = 0;
-      showCard(current);
-    }
+  // Hedging
+  { question: "What is transaction exposure?", answer: "Risk from future currency-denominated payables or receivables." },
+  { question: "How can firms hedge transaction exposure?", answer: "Using forward contracts, options, or borrowing in foreign currency." },
+  { question: "What is economic exposure?", answer: "Long-term impact of FX changes on a firm's value and competitiveness." },
+  { question: "What is operational hedging?", answer: "Structuring operations (sales and costs) to balance currency inflows and outflows." },
 
-    showCard(current);
-  </script>
+  // Theories
+  { question: "What is interest rate parity (IRP)?", answer: "The forward/spot rate reflects interest rate differences between countries." },
+  { question: "What is the expectation theory in FX?", answer: "The forward rate equals the expected future spot rate." },
+  { question: "What is purchasing power parity (PPP)?", answer: "Currencies adjust so identical goods cost the same in each country." },
+  { question: "What is the international Fisher effect?", answer: "Currencies with higher nominal rates will depreciate due to inflation." },
+
+  // Investment Evaluation
+  { question: "What are the 2 methods to evaluate international projects?", answer: "1. Convert foreign cash flows to domestic using forward rates and discount; 2. Discount in foreign currency then convert." },
+  { question: "Why separate investment decisions from FX hedging?", answer: "To avoid rejecting positive NPV projects due to FX risk that can be managed separately." },
+
+  // FX Market Insights
+  { question: "Why might firms not hedge?", answer: "Costs, belief FX will reverse, natural hedging via operations." },
+  { question: "What does the evidence show about FX markets?", answer: "FX rates show volatility, short-term predictability is low, and hedging adds value for exposed firms." }
+];
+
+let currentIndex = 0;
+
+function displayCard() {
+  const questionEl = document.getElementById('question');
+  const answerEl = document.getElementById('answer');
+  questionEl.textContent = flashcards[currentIndex].question;
+  answerEl.textContent = flashcards[currentIndex].answer;
+  answerEl.style.display = "none";
+}
+
+function showAnswer() {
+  document.getElementById('answer').style.display = "block";
+}
+
+function nextCard() {
+  currentIndex = (currentIndex + 1) % flashcards.length;
+  displayCard();
+}
+
+function prevCard() {
+  currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+  displayCard();
+}
+
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  currentIndex = 0;
+  displayCard();
+}
+
+window.onload = displayCard;
+</script>
+
 </body>
 </html>
+
 
 
