@@ -3,53 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Week 10 Flashcards - International Corporate Finance</title>
+  <title>Week 9 - FX Markets Flashcards</title>
   <style>
-    body { font-family: Arial, sans-serif; background-color: #f9f9f9; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-    .flashcard { width: 80%; max-width: 600px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px; }
-    .buttons { display: flex; justify-content: space-between; margin-top: 10px; }
-    button { padding: 10px 20px; border: none; border-radius: 5px; background-color: #007bff; color: white; cursor: pointer; }
-    button:hover { background-color: #0056b3; }
+    body { font-family: sans-serif; background: #f5f5f5; text-align: center; margin: 0; padding: 2rem; }
+    .flashcard { background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); max-width: 600px; margin: 2rem auto; }
+    .question { font-weight: bold; font-size: 1.2rem; }
+    .answer { margin-top: 1rem; display: none; }
+    button { margin: 1rem 0.5rem; padding: 0.6rem 1.2rem; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+    .toggle { background-color: #007BFF; color: white; }
+    .nav { background-color: #28A745; color: white; }
   </style>
 </head>
 <body>
-  <h1>Week 10: International Corporate Finance Flashcards</h1>
-  <div class="flashcard" id="flashcard">
-    <p id="question"></p>
-  </div>
-  <div class="buttons">
-    <button onclick="prevCard()">Previous</button>
-    <button onclick="shuffleCard()">Shuffle</button>
-    <button onclick="nextCard()">Next</button>
+
+  <h1>Week 9: FX Markets & Exchange Rates</h1>
+  <div id="card" class="flashcard">
+    <div class="question" id="question"></div>
+    <div class="answer" id="answer"></div>
+    <button class="toggle" onclick="toggleAnswer()">Show/Hide Answer</button>
+    <br/>
+    <button class="nav" onclick="prevCard()">Previous</button>
+    <button class="nav" onclick="nextCard()">Next</button>
+    <button class="nav" onclick="shuffleCards()">Shuffle</button>
   </div>
 
   <script>
     const flashcards = [
-      { q: "What is an exchange rate?", a: "The amount of one currency needed to purchase one unit of another currency." },
-      { q: "Define spot rate and forward rate of exchange.", a: "Spot rate is for immediate transactions; forward rate is for transactions at a future date." },
-      { q: "What does it mean if a currency is at a forward premium?", a: "It means you can buy more foreign currency at the forward rate than at the spot rate." },
-      { q: "What is transaction exposure?", a: "Exposure from foreign currency receivables or payables due to timing differences." },
-      { q: "What is economic exposure?", a: "Currency risk arising from competitive impacts of exchange rate changes." },
-      { q: "How can a company hedge currency risk?", a: "By selling the foreign currency forward or borrowing in that currency and selling spot." },
-      { q: "What is interest rate parity?", a: "It states that the ratio of forward to spot exchange rates equals the ratio of interest rates in two countries." },
-      { q: "What is the expectations theory of exchange rates?", a: "It assumes the forward rate equals the expected future spot rate." },
-      { q: "What is purchasing power parity?", a: "Exchange rates adjust to offset inflation differences between countries." },
-      { q: "What is the cost of hedging?", a: "It's the difference between the forward rate and the expected future spot rate." },
-      { q: "How does operational hedging work?", a: "By balancing production and sales in the same currency zones." },
-      { q: "What are the two methods to evaluate international projects?", a: "1. Discount foreign cash flows at foreign rate and convert, or 2. Convert at forward rate and discount at home rate." },
-      { q: "Why separate investment from exchange rate hedging?", a: "To avoid rejecting profitable projects due to expected currency changes." }
+      {
+        q: "What is the definition of 'Exchange Rate'?",
+        a: "The amount of one currency needed to purchase one unit of another."
+      },
+      {
+        q: "What is a 'Spot Rate of Exchange'?",
+        a: "The exchange rate for an immediate transaction."
+      },
+      {
+        q: "What is a 'Forward Exchange Rate'?",
+        a: "The exchange rate for a transaction set to occur at a future date."
+      },
+      {
+        q: "What is meant by 'Forward Premium' and 'Forward Discount'?",
+        a: "Premium: foreign currency buys more in the future than now. Discount: it buys less."
+      },
+      {
+        q: "How do you calculate the forward premium/discount?",
+        a: "((Forward Rate / Spot Rate) - 1) × 100"
+      },
+      {
+        q: "What does the 'Interest Rate Parity' theory state?",
+        a: "It says the forward/spot exchange rate ratio equals the ratio of interest rates between two countries."
+      },
+      {
+        q: "Explain the 'Expectations Theory of Exchange Rates'.",
+        a: "It says the forward rate is an unbiased predictor of the future spot rate."
+      },
+      {
+        q: "What is the 'International Fisher Effect'?",
+        a: "Countries with higher interest rates generally have higher expected inflation and depreciation."
+      },
+      {
+        q: "Define Transaction Exposure.",
+        a: "Risk from foreign currency payments delays, due to invoicing in foreign currency."
+      },
+      {
+        q: "Define Economic Exposure.",
+        a: "Long-term effect of exchange rate fluctuations on competitiveness and pricing."
+      },
+      {
+        q: "What are two strategies for hedging transaction exposure?",
+        a: "1. Sell foreign currency forward; 2. Borrow foreign currency and sell spot."
+      },
+      {
+        q: "What is operational hedging?",
+        a: "Aligning production and sales across countries to naturally balance currency risk."
+      },
+      {
+        q: "What is the cost of hedging?",
+        a: "The difference between the forward rate and the expected spot rate at maturity."
+      },
+      {
+        q: "How does a global vs. domestic portfolio change the cost of capital?",
+        a: "Domestic investors focus on domestic risk; global investors consider global correlation effects."
+      },
+      {
+        q: "Why should FX hedging be separated from investment decisions?",
+        a: "To ensure good investments aren't ignored due to currency concerns."
+      }
     ];
 
     let current = 0;
 
     function showCard(index) {
-      const card = flashcards[index];
-      document.getElementById('question').innerHTML = `<strong>Q:</strong> ${card.q}<br><br><strong>A:</strong> ${card.a}`;
+      document.getElementById("question").textContent = flashcards[index].q;
+      document.getElementById("answer").textContent = flashcards[index].a;
+      document.getElementById("answer").style.display = "none";
     }
 
-    function nextCard() {
-      current = (current + 1) % flashcards.length;
-      showCard(current);
+    function toggleAnswer() {
+      const ans = document.getElementById("answer");
+      ans.style.display = ans.style.display === "none" ? "block" : "none";
     }
 
     function prevCard() {
@@ -57,13 +109,18 @@
       showCard(current);
     }
 
-    function shuffleCard() {
-      current = Math.floor(Math.random() * flashcards.length);
+    function nextCard() {
+      current = (current + 1) % flashcards.length;
       showCard(current);
     }
 
-    // Show the first card on load
-    window.onload = () => showCard(current);
+    function shuffleCards() {
+      flashcards.sort(() => Math.random() - 0.5);
+      current = 0;
+      showCard(current);
+    }
+
+    showCard(current);
   </script>
 </body>
 </html>
